@@ -7,8 +7,6 @@ export const material = new ShaderMaterial({
     //fog: true,
     uniforms: {
         time: {
-
-
             value: 0.0
         },
         pointscale: {

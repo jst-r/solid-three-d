@@ -39,10 +39,9 @@ export class Example {
         this.controls = new OrbitControls(this.camera, this.renderer.domElement);
 
         this.stats = new Stats();
-
-        document.body.appendChild(this.stats.dom);
-        document.body.appendChild(this.renderer.domElement);
-        document.body.style.cssText = "margin: 0; overflow: hidden";
+        container.appendChild(this.stats.dom);
+        container.appendChild(this.renderer.domElement);
+        container.style.cssText = "margin: 0; overflow: hidden";
         window.addEventListener("resize", this.onWindowResize, false);
 
         this.start = Date.now();
@@ -75,7 +74,7 @@ export class Example {
     animateMaterial = () => {
         material.uniforms["time"].value =
             options.perlin.speed * (Date.now() - this.start);
-        material.uniforms["pointscale"].value = options.perlin.perlins;
+        material.uniforms["pointscale"].value = options.perlin.pointScale;
         material.uniforms["decay"].value = options.perlin.decay;
         material.uniforms["complex"].value = options.perlin.complex;
         material.uniforms["waves"].value = options.perlin.waves;
