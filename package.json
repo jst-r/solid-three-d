@@ -9,10 +9,12 @@
   "dependencies": {
     "@solidjs/router": "^0.12.5",
     "@solidjs/start": "^0.6.1",
+    "@types/three": "^0.162.0",
     "autoprefixer": "^10.4.14",
     "postcss": "^8.4.26",
     "solid-js": "^1.8.15",
     "tailwindcss": "^3.3.3",
+    "three": "^0.162.0",
     "vinxi": "^0.3.9"
   },
   "engines": {
