@@ -2,7 +2,7 @@ export const options = {
     perlin: {
         vel: 0.000,
         speed: 0.0005,
-        pointScale: 1.0,
+        pointScale: 0.2,
         decay: 0.1,
         complex: 0.3,
         waves: 20.0,
