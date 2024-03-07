@@ -1,4 +1,5 @@
 varying float qnoise;
+varying vec3 v_color; // Varying variable to pass color to fragment shader
 
 uniform float time;
 uniform bool redhell;
@@ -15,5 +16,5 @@ void main() {
         g = cos(qnoise - 0.5);
         b = abs(qnoise);
     }
-    gl_FragColor = vec4(66., 157., 105., 255.0) / 255.;
+    gl_FragColor = vec4(v_color, 1.0);
 }

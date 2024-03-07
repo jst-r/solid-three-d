@@ -66,9 +66,9 @@ export class Example {
     animatePerlin = () => {
         const { sinVel, ampVel } = options.spin;
         const performance = Date.now() * 0.003;
-        // perlin.rotation.x +=
-        //     (Math.sin(performance * sinVel) * ampVel * Math.PI) / 180;
-        // perlin.rotation.y += options.perlin.vel;
+        perlin.rotation.x +=
+            (Math.sin(performance * sinVel) * ampVel * Math.PI) / 180;
+        perlin.rotation.y += options.perlin.vel;
     };
 
     animateMaterial = () => {

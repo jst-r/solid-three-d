@@ -1,15 +1,15 @@
 // GLSL textureless classic 3D noise "cnoise",
-    // with an RSL-style periodic variant "pnoise".
-    // Author:  Stefan Gustavson (stefan.gustavson@liu.se)
-    // Version: 2011-10-11
-    //
-    // Many thanks to Ian McEwan of Ashima Arts for the
-    // ideas for permutation and gradient selection.
-    //
-    // Copyright (c) 2011 Stefan Gustavson. All rights reserved.
-    // Distributed under the MIT license. See LICENSE file.
-    // https://github.com/ashima/webgl-noise
-    //
+// with an RSL-style periodic variant "pnoise".
+// Author:  Stefan Gustavson (stefan.gustavson@liu.se)
+// Version: 2011-10-11
+//
+// Many thanks to Ian McEwan of Ashima Arts for the
+// ideas for permutation and gradient selection.
+//
+// Copyright (c) 2011 Stefan Gustavson. All rights reserved.
+// Distributed under the MIT license. See LICENSE file.
+// https://github.com/ashima/webgl-noise
+//
 
 vec3 mod289(vec3 x) {
     return x - floor(x * (1.0 / 289.0)) * 289.0;
@@ -175,6 +175,7 @@ varying vec2 vUv;
 varying float noise;
 varying float qnoise;
 varying float displacement;
+varying vec3 v_color; // Varying variable to pass color to fragment shader
 
 uniform float time;
 uniform float pointscale;
@@ -186,7 +187,7 @@ uniform bool fragment;
 
 float turbulence(vec3 p) {
     float t = -0.1;
-    for(float f = 1.0; f <= 3.0; f++) {
+    for(float f = 1.0; f <= 1.0; f++) {
         float power = pow(2.0, f);
         t += abs(pnoise(vec3(power * p), vec3(10.0, 10.0, 10.0)) / power);
     }
@@ -197,19 +198,14 @@ void main() {
 
     vUv = uv;
 
-    noise = (1.0 * -waves) * turbulence(decay * abs(normal + time));
-    qnoise = (2.0 * -eqcolor) * turbulence(decay * abs(normal + time));
-    float b = pnoise(complex * (position) + vec3(1.0 * time), vec3(100.0));
+    vec3 noise_coord = position * 0.2 + vec3(time * 0.2, 0., 0.);
 
-    if(fragment == true) {
-        displacement = -sin(noise) + normalize(b * 0.5);
-    } else {
-        displacement = -sin(noise) + cos(b * 0.5);
-    }
+    vec3 noise_val = vec3(cnoise(noise_coord), cnoise(noise_coord + vec3(100.)), 0.);
 
-    vec3 newPosition = (position) + (normal * displacement);
+    vec3 newPosition = (position) + (sin(time) * noise_val * 4.);
     gl_Position = (projectionMatrix * modelViewMatrix) * vec4(newPosition, 1.0);
-    gl_PointSize = (pointscale);
-     //gl_ClipDistance[0];
 
+    v_color = vec3(1., 1., 1.);
+
+    gl_PointSize = (pointscale);
 }
