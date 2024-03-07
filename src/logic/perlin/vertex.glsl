@@ -198,10 +198,10 @@ void main() {
 
     vUv = uv;
 
-    vec3 noise_coord = position * 0.2 + vec3(time * 0.2, 0., 0.);
+    vec3 noise_coord = position * 0.2 + vec3(time * 0.2, time * 0.3, 0.);
 
     vec3 noise_val = vec3(cnoise(noise_coord), cnoise(noise_coord + vec3(100.)), 0.);
-    vec3 offset = (sin(time) * noise_val * 4.);
+    vec3 offset = (sin(time) * noise_val * 4.) / (length(position) + 1.) * 10.;
 
     vec3 newPosition = (position) + offset;
     gl_Position = (projectionMatrix * modelViewMatrix) * vec4(newPosition, 1.0);
